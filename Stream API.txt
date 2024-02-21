@@ -1,0 +1,507 @@
+Streams:-
+=========
+diffrence between java.io Stream and java.util Stream:-
+--------------------------------------------------------
+-> if we want to represnt data with respect to file operations we can go for java.io Stream
+
+-> To Process the data from the collection
+
+difference between Collection and Stream:-
+----------------------------------------
+-> If we want to represent a group of objects as a single entity then we should go for collection.
+
+-> If we want to process objects from collection streams
+
+methods:-
+------
+stream()
+filter()
+map()
+collect()
+count()
+sorted()---->DNSO
+sorted(Comparator)===>CSO
+min();
+max();
+forEach()
+toArray()
+Stream.of()
+--------------------------
+Collection and Stream:-
+---------------------
+-> If we want to represent a group of objects as a single entity then we should go for collection.
+-> If we want to process objects from collection we can go for  streams
+
+Example :- Stream s=c.stream();
+Stream present in java.util.stream package
+c is any collection object
+stream()-> this method present inside Collection interface as dafault method 
+
+There are 2 stages are there
+1) configuration
+2) processing
+
+1) Configuration:-
+--------------
+for configuration we have 2 methods are there
+ a) filter()
+ -------------
+-> if we want filter elements from the collection based on the boolean condition we should go for filter().
+-> we can configure Filter by using filter() method of Stream interface.
+-> if we want to perform some operation on collection object then we should go for map().
+
+public Stream filter(Predicate<T> t)
+
+
+Stream s1=c.stream().map(i->i%2)
+
+list of marks
+filter based on marks slect only passwd students
+marks.stream().filter(m->m>35);
+
+filter:-
+-----
+input --->10 elements
+output -->o to 10 or <=10
+
+ b) map():-
+ -----------
+-> if we want to perform some operation on collection object then we should go for map().
+-> If we want to create a seprate new Object for every object present in the collection based on the some function then we should go for mapping mechanisham.
+-> we can Implements Mapping by using map() method of Stream interface.
+
+Stream s1=c.stream().map(i->i*2);
+
+public Stream map(Function<T,R> f)
+
+map:-
+----
+input : 10 elements
+output: 10
+
+
+Example For filter():-
+--------------------
+
+ArrayList<Integer> l=new ArrayList<Integer>();
+l.add(0);
+l.add(5);
+l.add(10);
+l.add(15);
+l.add(20);
+l.add(25);
+System.out.println(l);
+
+1) To Filter only event numbers and add result to new list
+
+List<Integer> l2=l.stream().filter(i->i%2==0).collect(Collectors.toLIst());
+System.out.println(l2);
+
+
+Without lambda:-
+----------------
+List<Integer> l1=new ArrayList<>();
+for(Integer num: l)
+{
+if(num%2==0)
+{
+l1.add(num);
+System.out.println(l1);
+}
+}
+
+Example for map():-
+----------------
+
+ArrayList<Integer> marks=new ArrayList<Integer>();
+marks.add(0);
+marks.add(5);
+marks.add(10);
+marks.add(15);
+marks.add(20);
+marks.add(25);
+System.out.println(marks);
+List<Integer> updatedMarks=marks.stream().map(i->i+5).collect(Collectors.toList());
+System.out.println(updatedMarks);
+}
+}
+
+
+without lambda:-
+-------------
+       List<Integer> l1=new ArrayList<>(); 
+       for(Integer num: a) 
+       { 
+	l1.add(num*2);
+        System.out.println("The result is:"+l1); 
+        }
+
+-------------------------------------------------------------------
+filter(Predicate)
+map(Function)
+
+
+list of marks
+filter based on marks slect only passwd students
+marks.stream().filter(m->m>35);
+
+
+filter based on some boolean condition we should go for filter()
+
+filter:-
+-----
+input --->10 elements
+output -->o to 10 or <=10
+
+map:-
+----
+input : 10 elements
+output: 10
+
+
+do some opertaions and get some result go for map()
+
+Processing by count method :-
+---------------------------
+-> This method collects the elements from the stream and adding to specified collection.
+
+ArrayList<String> a=new ArrayList<String>();
+a.add("pavan");
+a.add("Raviteja");
+a.add("Chiranjevi");
+a.add("venkatesh");
+a.add("Nagajuna");
+System.out.println(a);
+List<String> l1=a.stream().filter(i->i.length()>=9).collect(Collectors.toList();
+
+ArrayList<Integer> marks=new ArrayList<Integer>();
+marks.add(70);
+marks.add(45);
+marks.add(10);
+marks.add(65);
+marks.add(20);
+marks.add(25);
+System.out.println(marks);
+int noOfFailedStudents=marks.stream().filter(m->m>35).count();
+System.out.println(noOfFailedStudents);
+}
+}
+
+--------------------------------------------------------------------------------------------------------
+ArrayList<String> a=new ArrayList<String>();
+		a.add("pavan");
+		a.add("Raviteja");
+		a.add("Chiranjevi");
+		a.add("venkatesh");
+		a.add("Nagajuna");
+		System.out.println(a);
+		//List<String> l1=a.stream().filter(s->s.length()>=9).collect(Collectors.toList());
+		//List<String> l1=a.stream().map(s->s.toUpperCase()).collect(Collectors.toList());
+		List<String> l1=new ArrayList<>();
+		for(String s: a) {
+			String newString=s.toUpperCase();
+			l1.add(newString);
+		}
+		System.out.println(l1);
+	}
+--------------------------------------------------------------------------------------------------------------------------
+
+Processing by sorted() method :-
+-------------------------------
+-> we can use sorted() method to sort elements inside stream
+-> We can sort based on default natural sorting order and our own customized sorting order by comparator
+1) sorted()             ---> default natural sorting order
+2) sorted(Comparator c) ---> Customized sorting order
+
+With lambda:-
+------------
+
+ArrayList<Integer> marks=new ArrayList<Integer>();
+marks.add(70);
+marks.add(45);
+marks.add(10);
+marks.add(65);
+marks.add(20);
+marks.add(25);
+System.out.println(marks);
+List<Integer) sortedList=marks.stream().sorted().collect(Collectors.toList());
+System.out.println(sortedList));
+}
+}
+
+without lambda:-
+----------------
+		System.out.println(marks);
+		Collections.sort(marks);
+		System.out.println(marks);
+
+Customize sorting order:-
+----------------------
+
+(i1,i2)
+Comparator-->compare(obj1,obj2);
+  return -ve iff obj1 has to come before obj2
+  return +ve iff obj1 has to come after obj2
+  retrun 0 iff obj1 and obj2 are equeal
+
+Desending order:-
+--------------
+10,20
+(i1,i2)->(i1<i2)?+1:(i1>i2)?-1:0
+
+
+
+sorted()===>According to default natural sorting order
+sorted(Comparator)==>Customized sorting 
+
+Example:-
+---------
+ArrayList<Integer> marks=new ArrayList<Integer>();
+marks.add(70);
+marks.add(45);
+marks.add(10);
+marks.add(65);
+marks.add(20);
+marks.add(25);
+System.out.println(marks);
+List<Integer) sortedList=marks.stream().sorted((i1,i2)->(i1<i2)?+1:(i1>i2)?-1:0).collect(Collectors.toList());
+
+Default natural sorting order:-
+------------------------------
+ArrayList<Integer> marks=new ArrayList<Integer>();
+marks.add(70);
+marks.add(45);
+marks.add(10);
+marks.add(65);
+marks.add(20);
+marks.add(25);
+System.out.println(marks);
+List<Integer> sortedList=marks.stream().sorted((i1,i2)->i1.compareTo(i2)).collect(Collectors.toList());
+System.out.println(sortedList);
+}
+}
+
+customize sorting order:-
+====================
+List<Integer> sortedList=marks.stream().sorted((i1,i2)->-i1.compareTo(i2)).collect(Collectors.toList());
+
+(Or)
+List<Integer> sortedList=marks.stream().sorted((i1,i2)->i2.compareTo(i1)).collect(Collectors.toList());
+
+
+
+Example 2:-
+============
+class Test
+{
+public static void main(String []args)
+{
+ArrayList<String> l=new ArrayList<String>();
+l.add("Kajal");
+l.add("Sai Pallavi");
+l.add("Anupama");
+l.add("Anushka");
+System.out.println(l);
+List<String> sortedList=l.stream().sorted().collecto(Collectors.toList());
+System.out.println(sortedList);
+}
+}
+}
+
+
+Customized sorting order:-
+-----------------------
+List<String> sortedList=l.stream().sorted((s1,s2)->-s1.compareTo(s2)).collecto(Collectors.toList());
+
+(OR)
+
+List<String> sortedList=l.stream().sorted((s1,s2)->s2.compareTo(s1)).collecto(Collectors.toList());
+
+
+
+Customize sorting based on length:-
+==============================
+class Test
+{
+public static void main(String []args)
+{
+ArrayList<String> l=new ArrayList<String>();
+l.add("Kajal agarwal");
+l.add("Sai Pallavi");
+l.add("Anupama");
+l.add("Anushka shetty");
+l.add("depika padukone");
+System.out.println(l);
+Comparator<String> c=(s1,s2)->{
+    int l1=s1.length();
+    int l2=s2.legth();
+if(l1<l2) return -1;
+else if(l1>l2) return +1;
+else return s1.compareTo(s2);
+};
+
+List<String> sortedList=l.stream().sorted(c).collecto(Collectors.toList()
+System.out.println(sortedList);
+}
+}
+
+Example 2:-
+----------
+
+class Test
+{
+public static void main(String []args)
+{
+ArrayList<String> l=new ArrayList<String>();
+l.add("A");
+l.add("AAAA");
+l.add("AA");
+l.add("AAAAA");
+l.add("AAA");
+System.out.println(l);
+Comparator<String> c=(s1,s2)->{
+    int l1=s1.length();
+    int l2=s2.legth();
+if(l1<l2) return -1;
+else if(l1>l2) return +1;
+else return s1.compareTo(s2);
+};
+
+List<String> sortedList=l.stream().sorted(c).collecto(Collectors.toList()
+System.out.println(sortedList);
+}
+}
+
+
+
+Processing min() and max() methods :-
+===================================
+1) min(Comparator c)
+ -> Returns minimum value according to specified comparator
+
+2) max(Comparator c)
+   -> Returns maximum value according to specified comparator
+
+[5,3,10,15,4]==>Ascending order
+[3,4,5,10,15]
+
+min element ==3
+max element ===15
+
+[15,10,5,4,3]==>descending order
+[15 min element
+3 max element
+
+Example:-
+========
+
+class Test
+{
+public static void main(String []args)
+{
+ArrayList<Integer> l=new ArrayList<Integer>();
+l.add(10);
+l.add(0);
+l.add(15);
+l.add(5);
+l.add(20);
+System.out.println(l);
+Integer min=l.stream().min((i1,i2)->i1.compareTo(i2)).get();
+System.out.println(min);
+Integer max=l.stream().max((i1,i2)->i1.compareTo(i2)).get();
+System.out.println(max);
+}
+}
+
+
+Reverse:-
+------
+System.out.println(l);
+Integer min=l.stream().min((i1,i2)->-i1.compareTo(i2)).get();
+System.out.println(min);
+Integer max=l.stream().max((i1,i2)->-i1.compareTo(i2)).get();
+System.out.println(max);
+
+Example of min() and max():-
+----------------------------
+ArrayList<Integer> a = new ArrayList<>();
+		a.add(0);
+		a.add(10);
+		a.add(20);
+		a.add(5);
+		a.add(15);
+		a.add(25);
+		System.out.println(a);
+		
+		Integer min = a.stream().min((i1, i2) -> i1.compareTo(i2)).get();
+		System.out.println(min);
+
+		Integer min1 = a.stream().min((i1, i2) -> -i1.compareTo(i2)).get();
+		System.out.println(min1);
+		
+		Integer max = a.stream().max((i1, i2) -> i1.compareTo(i2)).get();
+		System.out.println(max);
+		Integer max1 = a.stream().max((i1, i2) -> - i1.compareTo(i2)).get();
+		System.out.println(max1);
+	}
+
+Processing forEach() method:-
+------------------------------
+-> This method won't return anything 
+-> This method can take lambda expression as argument and apply that lambda expression for each element present in stream.
+
+         	 ArrayList<String> a=new ArrayList<String>();
+		 a.add("A");
+		 a.add("AAA");
+		 a.add("BBB");
+		 a.add("CCCC");
+		
+	       //a.stream().forEach(s->System.out.println(a));
+		 a.stream().forEach(System.out::println);
+
+Processing toArray() method:-
+----------------------------------
+-> we can use toArray() method to copy elements present in the stream into specified array
+
+		
+          ArrayList<Integer> a = new ArrayList<>();
+		a.add(0);
+		a.add(10);
+		a.add(20);
+		a.add(5);
+		a.add(15);
+		a.add(25);
+
+          ArrayList<Integer> a = new ArrayList<>();
+		a.add(0);
+		a.add(10);
+		a.add(20);
+		a.add(5);
+		a.add(15);
+		a.add(25);
+		Integer[] array=a.stream().toArray(Integer[] :: new);
+		for(Integer x: array)
+		{
+			System.out.println(x);
+		}
+	}
+
+
+Processing of Stream.of():-
+---------------------------
+-> we can also apply Stream for group of values & for arrays
+
+1) for Group of values:-
+-----------------------
+	Stream<Integer> s=Stream.of(9,99,9999,99999);
+		s.forEach(System.out::println);
+2) for Arrays:-
+--------------
+Double[] d= {10.0,10.1,10.2,10.3,10.4};
+		Stream<Double> d1=Stream.of(d);
+		d1.forEach(System.out::println);
+
+
+
+
+
