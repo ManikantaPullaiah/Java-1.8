@@ -1,0 +1,134 @@
+Double colon:-
+============
+Method Reference by double colon(::) operator:-
+----------------------------------------------
+interface Interf
+{
+public void m1();
+}
+class Test
+{
+public static void main(String[] args)
+{
+Interf i=()->{
+System.out.println("Lambda implementaion");
+};
+i.m1();
+}
+-----------------------------------------------
+interface Interf
+{
+public void m1();
+}
+class Test
+{
+public static void m2()
+{
+System.out.println("S=Method reference");
+}
+public static void main(String[] args)
+{
+Interf i=Test::m2();
+i.m1();
+}
+
+Note:- m1() refer to m2()
+In this case both methods arguments must be same.
+
+Main purpose:-
+-------------
+-> we can replace lambdaexpresion with method refence
+
+Syntax for method refence:-
+---------------------------
+static:
+-------
+classname:: methodname
+ex: Test::m2
+
+instance:
+---------
+objectref:: methodname
+
+ex: Test t=new Test();
+t:: m1();
+
+MultiThreading with Metho reference:-
+---------------------------------------
+class Test
+{
+public static void main(String[] args)
+{
+Runnable r=()->{
+for(int i=0;i<10;i++)
+{
+System.out.println("CHild thread");
+}
+};
+Thread t=new Thread(r);
+t.start();
+for(int i=0;i<10;i++)
+{
+System.out.println("Main  thread");
+}
+}
+
+with Method reference:-
+---------------------
+public class Tets
+{
+public void m1()
+{
+for(int i=0;i<10;i++)
+{
+System.out.println("CHild thread");
+}
+}
+public static void main(String []args)
+{
+Test t=new Test();
+Runnable r=t::m1();
+Thread t=new Thread(r);
+t.start();
+for(int i=0;i<10;i++)
+{
+System.out.println("Main  thread");
+}
+}
+
+Constructor reference:-
+-----------------------
+class Sample
+{
+Sample()
+{
+System.out.println("Sample constrcutor for object creation");
+}
+}
+interface Interf
+{
+public Sample get();
+}
+lambda expression:-
+------------------
+class Test
+{
+public static void main(String []args)
+{
+Interf i=()->{
+Sample s=new Sample();
+return s;
+}
+Sample s1=i.get();
+}
+}
+with method refence:-
+-------------------
+class Test
+{
+public static void main(String []args)
+{
+Interf i=Sample::new;
+Sample s1=i.get();
+}
+}

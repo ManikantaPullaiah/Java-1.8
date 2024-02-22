@@ -1,0 +1,113 @@
+Date and Time API:-
+-----------------
+-> Until java 1.7 version we have several class are there to handle Date and Time
+        Date,Calender,TimeStamp
+-> java 1.8 version Date and Time Api introduced (It is called as Joda API).
+
+->  To get current system date
+     LocalDate date=LocalDate.now();
+     System.out.println(date);
+-> To get current system time
+      LocalTime time=LocalTime.now();
+      System.out.println(time);
+-> we need to import java.time.*
+
+
+
+Example:1) - To get date and month and year
+                   LocalDate date=LocalDate.now();
+     		  System.out.println(date);
+		int dd=date.getDayOfMonth();
+		int mm=date.getMonthValue();
+		int yyyy=date.getYear();
+		System.out.println(dd+"..."+mm+"..."+yyyy);
+               output :- 22..2..2024
+               we changae output formate
+	 	System.out.printf("%d-%d-%d,",dd,mm,yyyy);
+
+Example:2)- To get Hout , minute,Second,naniSeconds
+
+             	  LocalTime time=LocalTime.now(); 
+		  System.out.println(time);
+
+		  int hh=time.getHour();
+		  int mm=time.getMinute();
+		  int ss=time.getSecond();
+		  int nn=time.getNano();
+		  System.out.println(hh+".."+mm+".."+ss+".."+nn);
+		  System.out.printf("%d:%d:%d:%d",hh,mm,ss,nn);
+
+
+LocalDateTime:-
+--------------
+
+Example:- To get date and time
+
+
+	LocalDateTime time=LocalDateTime.now();
+	int dd=time.getDayOfMonth();
+	int month=time.getMonthValue();
+	int yyyy=time.getYear();
+	System.out.printf("%d-%d-%d",dd,month,yyyy);
+	int hh=time.getHour();
+	int mm=time.getMinute();
+	int ss=time.getSecond();
+	int nn=time.getNano();
+	System.out.printf("\n%d:%d:%d:%d",hh,mm,ss,nn);
+	
+Example-2); we can specify particular date also
+
+   		 LocalDateTime dt=LocalDateTime.of(1995,05,28,12,45);
+		System.out.println(dt);
+		System.out.println("After 6 months:"+dt.plusMonths(6));
+		System.out.println("Before 6 months:"+dt.minusMonths(6));
+
+
+Period:-
+------
+
+		LocalDate birthday=LocalDate.of(1993, 8, 15);
+		LocalDate today=LocalDate.now();
+		Period 	p=Period.between(birthday, today);
+		System.out.printf("Age is %d years %d months %d Days",p.getYears(),p.getMonths(),p.getDays());
+
+
+Year:-
+------
+
+	Scanner sc=new Scanner(System.in);
+		System.out.println("Enter Your Number");
+		int n = sc.nextInt();
+		Year y=Year.of(n);
+		if(y.isLeap())
+		{
+			System.out.printf("%d Year of Leap Year ",n);
+			
+		}else
+		{
+			System.out.printf("%d Year of Not Leap Year ",n);
+		}
+
+	}
+
+
+ZoneId:-
+------
+
+		ZoneId zone = ZoneId.systemDefault();
+		System.out.println(zone);
+		ZoneId la = ZoneId.of("America/Los_Angeles");
+		ZonedDateTime dt = ZonedDateTime.now(la);
+		System.out.println(dt);
+
+
+
+
+
+
+
+
+
+
+   
+
